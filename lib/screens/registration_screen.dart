@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/components/round_button.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cool_alert/cool_alert.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
@@ -72,7 +73,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Navigator.pushNamed(context, ChatScreen.id);
                   }
                 } catch (e) {
-                  print(e);
+                  CoolAlert.show(
+                      context: context, type: CoolAlertType.error, text: e);
                 }
               },
             ),
