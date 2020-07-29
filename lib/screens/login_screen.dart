@@ -1,6 +1,8 @@
 import 'package:flash_chat/constants.dart';
+import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/components/round_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -9,8 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
   String email;
   String password;
+  String error;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
               title: 'Log In',
               onPressed: () {
                 //Implement registration functionality.
+                try {
+                  final user = _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  if (user != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  error = e;
+                }
               },
             ),
           ],
