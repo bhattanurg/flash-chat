@@ -74,7 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   }
                 } catch (e) {
                   CoolAlert.show(
-                      context: context, type: CoolAlertType.error, text: e);
+                      context: context, type: CoolAlertType.error, text: '$e');
                 }
               },
             ),

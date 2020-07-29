@@ -75,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 } catch (e) {
                   CoolAlert.show(
-                      context: context, type: CoolAlertType.error, text: e);
+                      context: context,
+                      type: CoolAlertType.warning,
+                      text: '$e');
                 }
               },
             ),

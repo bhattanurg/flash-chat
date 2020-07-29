@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cool_alert/cool_alert.dart';
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
@@ -27,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(loggedInUser.email);
       }
     } catch (e) {
-      print(e);
+      CoolAlert.show(context: context, type: CoolAlertType.error, text: e);
     }
   }
 
@@ -40,7 +41,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
