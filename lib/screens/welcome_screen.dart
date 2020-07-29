@@ -54,7 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value * 100,
+                    height: animation.value * 70,
                   ),
                 ),
                 ColorizeAnimatedTextKit(
