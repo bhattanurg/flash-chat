@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
                 ColorizeAnimatedTextKit(
-                  text: ['Flash Chat'],
+                  text: ['Flash', 'Flash Chat'],
                   textStyle: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.w900,
