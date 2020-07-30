@@ -74,7 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   });
                   //Implement registration functionality.
                   try {
-                    final newUser = _auth.createUserWithEmailAndPassword(
+                    final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newUser != null) {
                       Navigator.pushNamed(context, ChatScreen.id);
@@ -84,9 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   } catch (e) {
                     CoolAlert.show(
-                        context: context,
-                        type: CoolAlertType.error,
-                        text: '$e');
+                        context: context, type: CoolAlertType.error, text: e);
                   }
                 },
               ),

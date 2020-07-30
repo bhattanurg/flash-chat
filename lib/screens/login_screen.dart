@@ -69,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
               RoundButton(
                 color: Colors.lightBlueAccent,
                 title: 'Log In',
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   //Implement registration functionality.
                   try {
-                    final user = _auth.signInWithEmailAndPassword(
+                    final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     if (user != null) {
                       Navigator.pushNamed(context, ChatScreen.id);
@@ -85,9 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   } catch (e) {
                     CoolAlert.show(
-                        context: context,
-                        type: CoolAlertType.warning,
-                        text: '$e');
+                        context: context, type: CoolAlertType.warning, text: e);
+                    print(e);
                   }
                 },
               ),
