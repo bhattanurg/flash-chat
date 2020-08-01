@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-final _fireStore = Firestore.instance;
+final _firestore = Firestore.instance;
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void messageStream() async {
-    await for (var snapshot in _fireStore.collection('messages').snapshots()) {
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
       for (var message in snapshot.documents) {
         print(message.data);
       }
@@ -87,11 +87,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      messageTextController.clear();
-                      _fireStore.collection('messages').add({
+                      _firestore.collection('messages').add({
                         'text': messageText,
-                        'sender': loggedInUser,
+                        'sender': loggedInUser.email,
                       });
+                      messageTextController.clear();
                       //Implement send functionality.
                     },
                     child: Text(
@@ -113,7 +113,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _fireStore.collection('messages').snapshots(),
+      stream: _firestore.collection('messages').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -130,9 +130,10 @@ class MessagesStream extends StatelessWidget {
           final messageSender = message.data['sender'];
 
           final messageBubble = MessageBubble(
-            text: messageText,
             sender: messageSender,
+            text: messageText,
           );
+
           messageBubbles.add(messageBubble);
         }
         return Expanded(
@@ -159,7 +160,10 @@ class MessageBubble extends StatelessWidget {
         children: <Widget>[
           Text(
             sender,
-            style: TextStyle(fontSize: 12, color: Colors.black54),
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black54,
+            ),
           ),
           Material(
             borderRadius: BorderRadius.circular(30),
@@ -169,7 +173,10 @@ class MessageBubble extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 text,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
             ),
           ),
